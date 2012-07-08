@@ -1,0 +1,5 @@
+This project is for experimenting with running image processing algorithms
+on Hadoop clusters.
+
+So far there is not much to see. A development log is available in the file
+devlog.txt in the top directory.

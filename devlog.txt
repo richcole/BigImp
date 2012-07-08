@@ -1,0 +1,22 @@
+Entries in this file are separated by ===. New entries are added to
+the top of the file rather than the end.
+
+===
+
+Doing some basic project setup for eclipse. Create some
+directories. Wrote a rake script that downloads Mahout and unpacks it
+in the build directory and then updates the .classpath (used by
+Eclipse) to point at it's jars and src. This is in prepartion for the
+next step, i.e. running the learned decision tree forest over the
+image set to find matches. I antisipate that this will require writing
+some custom java code and slotting it into Mahout.
+
+The current instructions for setting up the project after checking it out are:
+
+1. rake
+2. import the project into eclipse
+
+It should be linked to the jars and src inside mahout.
+
+
+

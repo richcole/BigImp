@@ -78,6 +78,7 @@
   <classpathentry kind="lib" path="build/mahout-distribution-0.7/lib/lucene-benchmark-3.6.0.jar"/>
   <classpathentry kind="lib" path="build/mahout-distribution-0.7/lib/commons-math-2.2.jar"/>
   <classpathentry kind="lib" path="build/mahout-distribution-0.7/mahout-examples-0.7-job.jar"/>
+  <classpathentry kind="lib" path="lib/swt.jar"/>
   <classpathentry kind="src" path="build/mahout-distribution-0.7/examples/src/main/java"/>
   <classpathentry kind="src" path="build/mahout-distribution-0.7/examples/src/test/java"/>
   <classpathentry kind="src" path="build/mahout-distribution-0.7/integration/src/main/java"/>

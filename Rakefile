@@ -11,6 +11,7 @@ class Builder
   def initialize
     @proj_dir  = `pwd`.chomp
     @build_dir = @proj_dir / "build"
+    @lib_dir = @proj_dir / "lib"
 
     @mahout_tarball = @build_dir / "mahout-distribution-0.7.tar.gz"
     @mahout_src_tarball = @build_dir / "mahout-distribution-0.7-src.tar.gz"
@@ -69,6 +70,9 @@ class Builder
       outp.puts '  <classpathentry kind="src" path="src"/>'
       outp.puts '  <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>'
       Dir.glob(@mahout_dir / "**" / "*.jar") do |path|
+        outp.puts "  <classpathentry kind=\"lib\" path=\"#{clean_path(path)}\"/>"
+      end
+      Dir.glob(@lib_dir / "*.jar") do |path|
         outp.puts "  <classpathentry kind=\"lib\" path=\"#{clean_path(path)}\"/>"
       end
       Dir.glob(@mahout_dir / "**" / "java") do |path|

@@ -3,6 +3,15 @@ the top of the file rather than the end.
 
 ===
 
+Added some more functionality to the SWT app. There is now a selection
+box, some sort of reasonable layout and a button that would save a
+part of the image if that code were written at all.
+
+Modified the Rakefile to handle the fact that swt needs different
+libraries for 32 and 64 bit.
+
+===
+
 Modified the feature generation program to generate features for
 images but as yet there are no images for classification.
 

@@ -11,7 +11,12 @@ class Builder
   def initialize
     @proj_dir  = `pwd`.chomp
     @build_dir = @proj_dir / "build"
-    @lib_dir = @proj_dir / "lib"
+    @lib_dirs = [ @proj_dir / "lib" ]
+    if `uname -m` == 'x86_64' then
+      @lib_dirs << (@proj_dir / "lib32")
+    else
+      @lib_dirs << (@proj_dir / "lib64")
+    end
 
     @mahout_tarball = @build_dir / "mahout-distribution-0.7.tar.gz"
     @mahout_src_tarball = @build_dir / "mahout-distribution-0.7-src.tar.gz"
@@ -72,9 +77,13 @@ class Builder
       Dir.glob(@mahout_dir / "**" / "*.jar") do |path|
         outp.puts "  <classpathentry kind=\"lib\" path=\"#{clean_path(path)}\"/>"
       end
-      Dir.glob(@lib_dir / "*.jar") do |path|
-        outp.puts "  <classpathentry kind=\"lib\" path=\"#{clean_path(path)}\"/>"
+
+      for lib_dir in @lib_dirs do
+        Dir.glob(lib_dir / "*.jar") do |path|
+          outp.puts "  <classpathentry kind=\"lib\" path=\"#{clean_path(path)}\"/>"
+        end
       end
+
       Dir.glob(@mahout_dir / "**" / "java") do |path|
         next if path =~ /\/distribution/
         outp.puts "  <classpathentry kind=\"src\" path=\"#{clean_path(path)}\"/>"

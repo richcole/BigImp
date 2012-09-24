@@ -1,9 +1,6 @@
-;; This buffer is for notes you don't want to save, and for Lisp evaluation.
-;; If you want to create a file, visit that file with C-x C-f,
-;; then enter the text in that file's own buffer.
 
 export HADOOP_CONF_DIR=/home/hadoop/conf
-export PATH=$PATH:/mnt/mahout/mahout-distribution-0.7/bin
+export PATH="$PATH:/mnt/mahout/mahout-distribution-0.7/bin"
 
 
 i=$(uuidgen); 

@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseEvent;
@@ -30,6 +33,8 @@ import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Layout;
 import org.eclipse.swt.widgets.Shell;
 
+//import com.ibm.icu.util.CharsTrie.Iterator;
+
 public class SwtExample {
 
   private Display display;
@@ -38,6 +43,7 @@ public class SwtExample {
   private Image image;
   private Canvas canvas;
   private Rectangle rect = new Rectangle(0, 0, 200, 200);
+  private List<Rectangle> rects = new ArrayList<Rectangle>();
   private boolean mouseDown = false;
   private MouseHandler mouseHandler;
   private Button button;
@@ -55,7 +61,14 @@ public class SwtExample {
         s = ((double) cb.height) / b.height;
       }
       e.gc.drawImage(image, 0, 0, b.width, b.height, 0, 0, (int) (b.width * s), (int) (b.height * s));
-      e.gc.drawRectangle(rect);
+      e.gc.setForeground(display.getSystemColor(SWT.COLOR_RED)); 
+      System.out.format("Now we have %d rects\n", rects.size());
+      Iterator<Rectangle> iter = rects.iterator();
+      while( iter.hasNext() ) {
+    	  Rectangle r = iter.next();
+    	  System.out.println("   r = " + r);
+    	  e.gc.drawRectangle(r);
+      }      
     }
   }
 	
@@ -80,6 +93,8 @@ public class SwtExample {
       rect.width = arg.x - rect.x;
       rect.height = arg.y - rect.y;
       mouseDown = false;
+      System.out.println("adding a rect");
+      rects.add(rect);
       canvas.redraw();
     }
 

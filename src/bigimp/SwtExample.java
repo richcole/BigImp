@@ -94,7 +94,8 @@ public class SwtExample {
       rect.height = arg.y - rect.y;
       mouseDown = false;
       System.out.println("adding a rect");
-      rects.add(rect);
+      // No copy constructor for Rectangle??
+      rects.add( new Rectangle(rect.x, rect.y, rect.width, rect.height ) );
       canvas.redraw();
     }
 

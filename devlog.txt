@@ -1,6 +1,21 @@
 Entries in this file are separated by ===. New entries are added to
 the top of the file rather than the end.
 
+=== 2012-09-24 JRS v
+
+Added "python" directory with active learning prototype, created with wxglade:
+
+   > wxglade alproto.wxg
+
+This editor allows you to manipulate the widgets and layout, while maintaining the custom code you
+have added.  You click "generate code" to regenerate the python source, without over-writing.
+
+It uses floatCanvas (at the moment) which on my OS wasn't on the path, see the
+cmd line at the top of the file.
+
+To use it, simply supply the filenames of the images as args. 
+
+
 === 2012-09-23 JRS v
 
 Inputs: images that might contain object (signs)

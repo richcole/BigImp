@@ -12,10 +12,10 @@ class Builder
     @proj_dir  = `pwd`.chomp
     @build_dir = @proj_dir / "build"
     @lib_dirs = [ @proj_dir / "lib" ]
-    if `uname -m` == 'x86_64' then
-      @lib_dirs << (@proj_dir / "lib32")
-    else
+    if `uname -m`.chomp == 'x86_64' then
       @lib_dirs << (@proj_dir / "lib64")
+    else
+      @lib_dirs << (@proj_dir / "lib32")
     end
 
     @mahout_tarball = @build_dir / "mahout-distribution-0.7.tar.gz"
@@ -23,6 +23,10 @@ class Builder
     @remote_mahout_tarball = "http://richcole-test.s3.amazonaws.com/mahout/mahout-distribution-0.7.tar.gz"
     @remote_mahout_src_tarball = "http://richcole-test.s3.amazonaws.com/mahout/mahout-distribution-0.7-src.tar.gz"
     
+    @remote_gson_zip = "http://google-gson.googlecode.com/files/google-gson-2.2.2-release.zip"
+    @gson_zip = @build_dir / "google-gson-2.2-release.zip" 
+    @gson_jar = @build_dir / "google-gson-2.2.2/gson-2.2.2.jar"
+
     @mahout_dir = @build_dir / "mahout-distribution-0.7"
     @stamps_dir = @build_dir / "stamps"
   end
@@ -58,6 +62,13 @@ class Builder
       if ! File.exist?(@mahout_dir / "pom.xml") then
         sh "tar -xzf #{@mahout_src_tarball} -C #{@build_dir}"
       end
+      if ! File.exist?(@gson_zip) then
+        sh "wget -O #{@gson_zip} #{@remote_gson_zip}"
+      end
+      if ! File.exist?(@gson_jar) then
+        sh "mkdir -p #{@build_dir}"
+	sh "cd #{@build_dir} && unzip #{@gson_zip}"
+      end
     end
 
     task :create_classpath => [:depends] do
@@ -83,6 +94,7 @@ class Builder
           outp.puts "  <classpathentry kind=\"lib\" path=\"#{clean_path(path)}\"/>"
         end
       end
+      outp.puts "  <classpathentry kind=\"lib\" path=\"#{clean_path(@gson_jar)}\"/>"
 
       Dir.glob(@mahout_dir / "**" / "java") do |path|
         next if path =~ /\/distribution/
